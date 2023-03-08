@@ -8,4 +8,6 @@ config-version: 2
 target-path: "target"
 clean-targets: ["target", "dbt_modules", "dbt_packages"]
 macro-paths: ["macros"]
+model-paths: ["models"]
+test-paths: ["tests"]
 log-path: "logs"
