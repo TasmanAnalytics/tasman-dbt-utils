@@ -1,8 +1,8 @@
-{% macro do_table_scan(table, schema=target.schema, database=target.database) %}
-	{{ return(adapter.dispatch('do_table_scan', 'tasman-dbt-utils')(table, schema, database)) }}
+{% macro create_table_profile(table, schema=target.schema, database=target.database) %}
+	{{ return(adapter.dispatch('create_table_profile', 'tasman-dbt-utils')(table, schema, database)) }}
 {%- endmacro %}
 
-{% macro default__do_table_scan(table, schema=target.schema, database=target.database) %}
+{% macro default__create_table_profile(table, schema=target.schema, database=target.database) %}
 
 	{%- set metrics_list = ['count', 'count_distinct', 'null_count', 'min', 'max', 'range', 'avg', 'top_count'] -%}
 	
