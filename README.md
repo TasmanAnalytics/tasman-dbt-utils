@@ -32,7 +32,7 @@ packages:
 - [SQL Functions](#sql-functions)
 	- [include](#include)
 - [Monitoring & auditing](#monitoring--auditing)
-	- [do_table_scan](#do_table_scan)
+	- [create_table_profile](#create_table_profile)
 - [Ops](#ops)
 	- [set_warehouse_size](#set_warehouse)
 	- [drop_old_relations](#drop_old_relations)
@@ -44,7 +44,7 @@ packages:
 #### Include
 
 ### Monitoring & auditing
-#### [do_table_scan](macros/do_table_scan.sql)
+#### [create_table_profile](macros/create_table_profile.sql)
 Prints a summary of statistics about the target model to the terminal.
 ```
 | database_name   | schema_name | table_name | column_name          | ordinal_position | row_count | distinct_count | null_count | is_unique | max        | min        |     avg |
