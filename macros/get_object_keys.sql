@@ -1,5 +1,5 @@
 {% macro get_object_keys(column, table, schema=target.schema, database=target.database) %}
-    {{ return(adapter.dispatch('get_object_keys', 'tasman-dbt-utils')(column, table, database, schema)) }}
+    {{ return(adapter.dispatch('get_object_keys', 'tasman_dbt_utils')(column, table, database, schema)) }}
 {%- endmacro %}
 
 {% macro snowflake__get_object_keys(column, table, schema=target.schema, database=target.database) %}
@@ -17,9 +17,9 @@
 	{% endset %}
 
 	{% if execute %}
-		{%- set table_scan_result = run_query(object_keys_query) -%}
+		{%- set query_result = run_query(object_keys_query) -%}
 	{% endif %}
 
-	{% do table_scan_result.print_table(max_rows=50, max_column_width=200) %}
+	{% do query_result.print_table(max_rows=50, max_column_width=200) %}
 
 {% endmacro %}

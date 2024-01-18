@@ -1,7 +1,7 @@
-# tasman-dbt-utils
+# tasman_dbt_utils
 
-## What is tasman-dbt-utils?
-`tasman-dbt-utils` is a dbt package with reusable macro's. It includes macro's for, but not limited to:
+## What is tasman_dbt_utils?
+`tasman_dbt_utils` is a dbt package with reusable macro's. It includes macro's for, but not limited to:
 - tests
 - monitoring & auditing
 - SQL functions
@@ -23,7 +23,7 @@ With the environment variable, you can use a git reference in the packages.yml f
 
 ```
 packages:
-    - git: https://{{env_var('DBT_ENV_SECRET_GIT_CREDENTIAL')}}@github.com/TasmanAnalytics/tasman-dbt-utils.git
+    - git: https://{{env_var('DBT_ENV_SECRET_GIT_CREDENTIAL')}}@github.com/TasmanAnalytics/tasman_dbt_utils.git
       revision: 0.1
 ```
 

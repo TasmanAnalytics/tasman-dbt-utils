@@ -1,5 +1,5 @@
 {% macro set_warehouse_size(size) %}
-	{{ return(adapter.dispatch('set_warehouse_size', 'tasman-dbt-utils')(size)) }}
+	{{ return(adapter.dispatch('set_warehouse_size', 'tasman_dbt_utils')(size)) }}
 {% endmacro %}
 
 {% macro snowflake__set_warehouse_size(size) %}

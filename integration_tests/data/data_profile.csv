@@ -1,0 +1,7 @@
+primary_key,numeric_col,text_col,boolean_col,datetime_col
+0,123,abc,true,2024-01-01 00:00:00
+1,456,def,true,2024-01-02 00:00:00
+2,789,ghi,true,2024-01-03 00:00:00
+3,123,abc,false,2024-01-01 00:00:00
+4,456,def,false,2024-01-02 00:00:00
+5,789,ghi,false,2024-01-03 00:00:00
