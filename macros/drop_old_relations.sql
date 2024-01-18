@@ -1,5 +1,5 @@
 {% macro drop_old_relations(schema_prefix=target.schema, database=target.database, dry_run=True) %}
-	{{ return(adapter.dispatch('drop_old_relations', 'tasman-dbt-utils')(schema_prefix, database, dry_run)) }}
+	{{ return(adapter.dispatch('drop_old_relations', 'tasman_dbt_utils')(schema_prefix, database, dry_run)) }}
 {%- endmacro %}
 
 {% macro default__drop_old_relations(schema_prefix=target.schema, database=target.database, dry_run=True) %}
