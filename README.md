@@ -132,11 +132,43 @@ models:
 3. Run dbt test as you normally would e.g. `dbt test -s dmn_jaffle_shop`
 
 ### SQL Functions
-#### Include
---TODO
+#### include_source ([source](macros/mcr_include_source.sql))
+A frequently used pattern for creating initial CTEs to reference sources to create a dbt model dependancy.
+
+| Platform  | Support |
+| --------- | ------- |
+| BigQuery  | ✅      |
+| Snowflake | ✅      |
+
+**Arguments**
+- `source`: (required) Source model name to be used in script. This is also used to name the CTE.
+
+**Usage**
+```
+    {{include_source('dbo','user')}}
+    {{include_source('dbo','event')}}
+```
+
+#### include_ref ([source](macros/mcr_include_ref.sql))
+A frequently used pattern for creating initial CTEs to reference upstream models to create a dbt model dependancy.
+
+| Platform  | Support |
+| --------- | ------- |
+| BigQuery  | ✅      |
+| Snowflake | ✅      |
+
+**Arguments**
+- `source`: (required) Source model name to be used in script. This is also used to name the CTE.
+- `where_statement`: (optional) This can be used to do an initial filter on the model.
+
+**Usage**
+```
+    {{include('stg_user', 'where user_active = true')}}
+    {{include('dmn_pipeline')}}
+```
 
 ### Monitoring & auditing
-#### [create_table_profile](macros/create_table_profile.sql)
+#### create_table_profile ([source](macros/create_table_profile.sql))
 Prints a summary of statistics about the target model to the terminal.
 ```
 | database_name   | schema_name | table_name | column_name          | ordinal_position | row_count | distinct_count | null_count | is_unique | max        | min        |     avg |
@@ -162,7 +194,7 @@ _Scope: model, seed, snapshot_
 - `schema` (optional, default=target.schema): the schema of where the target table is located.
 - `database` (optional, default=target.database): the database of where the target table is located.
  
-### [get_object_keys](macros/get_object_keys.sql)
+#### get_object_keys ([source](macros/get_object_keys.sql))
 Gets all of the object keys (including nested keys) of a column and prints them to the terminal.
 
 | Platform  | Support |
@@ -179,7 +211,7 @@ _Scope: model, snapshot_
 - `database` (optional, default=target.database): the database of where the target table is located.
 
 ### Ops
-#### [set_warehouse_size](macros/set_warehouse_size.sql)
+#### set_warehouse_size ([source](macros/set_warehouse_size.sql))
 Sets a custom warehouse size for individual models.
 
 | Platform  | Support |
@@ -206,8 +238,7 @@ vars:
 	tasman_dbt_utils:
 		available_warehouse_sizes: ['XS', 'S', 'M']
 ```
-
-#### [drop_old_relations](macros/drop_old_relations.sql)
+#### drop_old_relations ([source](macros/drop_old_relations.sql))
 This macro takes the relations in the manifest and compares it to the tables and views in the warehouse. Tables and views which are in the warehouse but not in the manifest will be dropped.
 
 | Platform  | Support |
