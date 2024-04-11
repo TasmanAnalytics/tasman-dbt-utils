@@ -19,21 +19,26 @@ The intention for this package is to have each macro available for [dbt-snowflak
 ```
 packages:
     - git: github.com/TasmanAnalytics/tasman_dbt_utils.git
-      revision: 1.0
+      revision: 1.0.0
 ```
 
 ## Macro's & tests
-- [Tests](#tests)
-  - [test_count_distinct_matches_source](#test_count_distinct_matches_source-source)
-  - [test_sum_matches_source](#test_sum_matches_source-source)
-- [SQL Functions](#sql-functions)
-  - [include_source](#include_source-source)
-  - [include_ref](#include_ref-source)
-- [Monitoring & auditing](#monitoring--auditing-source)
-  - [create_table_profile](#create_table_profile-source)
-- [Ops](#ops)
-  - [set_warehouse_size](#set_warehouse_size-source)
-  - [drop_old_relations](#drop_old_relations-source)
+- [tasman\_dbt\_utils](#tasman_dbt_utils)
+  - [What is tasman\_dbt\_utils?](#what-is-tasman_dbt_utils)
+  - [Installation](#installation)
+  - [Macro's \& tests](#macros--tests)
+    - [Tests](#tests)
+      - [test\_count\_distinct\_matches\_source (source)](#test_count_distinct_matches_source-source)
+      - [test\_sum\_matches\_source (source)](#test_sum_matches_source-source)
+    - [SQL Functions](#sql-functions)
+      - [include\_source (source)](#include_source-source)
+      - [include\_ref (source)](#include_ref-source)
+    - [Monitoring \& auditing](#monitoring--auditing)
+      - [create\_table\_profile (source)](#create_table_profile-source)
+      - [get\_object\_keys (source)](#get_object_keys-source)
+    - [Ops](#ops)
+      - [set\_warehouse\_size (source)](#set_warehouse_size-source)
+      - [drop\_old\_relations (source)](#drop_old_relations-source)
 
 ### Tests
 #### test_count_distinct_matches_source ([source](tests/generic/test_count_distinct_matches_source.sql))
