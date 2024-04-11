@@ -1,5 +1,10 @@
-# tasman_dbt_utils
+[![tasman_logo][tasman_wordmark_black]][tasman_website_light_mode]
+[![tasman_logo][tasman_wordmark_cream]][tasman_website_dark_mode]
 
+---
+*We are the boutique analytics consultancy that turns disorganised data into real business value. [Get in touch][tasman_contact] to learn more about how Tasman can help solve your organisations data challenges.*
+
+# tasman_dbt_utils
 ## What is tasman_dbt_utils?
 `tasman_dbt_utils` is a dbt package with reusable macro's. It includes macro's for, but not limited to:
 - tests
@@ -11,20 +16,10 @@ The intention for this package is to have each macro available for [dbt-snowflak
 
 ## Installation
 
-This package isn't currently publicly available and requires a token supplied by Tasman Analytics. It's best practice to use environment variables to store the token. You can do this locally by adding the following to your terminal configuration file (.zprofile or .zsh depending on your terminal)
-
-```
-export DBT_ENV_SECRET_GIT_CREDENTIAL="<token>"
-```
-
-For production runs, this will also need to be added to your production configuration. For dbt Cloud users, please follow [this](https://docs.getdbt.com/docs/build/packages) guide.
-
-With the environment variable, you can use a git reference in the packages.yml file.
-
 ```
 packages:
-    - git: https://{{env_var('DBT_ENV_SECRET_GIT_CREDENTIAL')}}@github.com/TasmanAnalytics/tasman_dbt_utils.git
-      revision: 0.1
+    - git: github.com/TasmanAnalytics/tasman_dbt_utils.git
+      revision: 1.0
 ```
 
 ## Macro's & tests
@@ -258,3 +253,10 @@ _Scope: model, seed, snapshot_
 ```
 dbt run-operation drop_old_relations --args '{dry_run: False, schema: dbt}'
 ```
+
+
+[tasman_website_dark_mode]: https://tasman.ai?utm_source=github&utm_medium=internal-referral&utm_campaign=tasman-dbt-utils#gh-dark-mode-only
+[tasman_website_light_mode]: https://tasman.ai?utm_source=github&utm_medium=internal-referral&utm_campaign=tasman-dbt-utilst#gh-light-mode-only
+[tasman_contact]: https://tasman.ai/contact?utm_source=github&utm_medium=internal-referral&utm_campaign=tasman-dbt-utils
+[tasman_wordmark_cream]: https://raw.githubusercontent.com/TasmanAnalytics/.github/master/images/tasman_wordmark_cream_500.png#gh-dark-mode-only
+[tasman_wordmark_black]: https://raw.githubusercontent.com/TasmanAnalytics/.github/master/images/tasman_wordmark_black_500.png#gh-light-mode-only
