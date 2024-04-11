@@ -28,12 +28,12 @@ packages:
   - [test_sum_matches_source](#test_sum_matches_source-source)
 - [SQL Functions](#sql-functions)
   - [include_source](#include_source-source)
-	- [include_ref](#include_ref-source)
+  - [include_ref](#include_ref-source)
 - [Monitoring & auditing](#monitoring--auditing-source)
-	- [create_table_profile](#create_table_profile-source)
+  - [create_table_profile](#create_table_profile-source)
 - [Ops](#ops)
-	- [set_warehouse_size](#set_warehouse_size-source)
-	- [drop_old_relations](#drop_old_relations-source)
+  - [set_warehouse_size](#set_warehouse_size-source)
+  - [drop_old_relations](#drop_old_relations-source)
 
 ### Tests
 #### test_count_distinct_matches_source ([source](tests/generic/test_count_distinct_matches_source.sql))
