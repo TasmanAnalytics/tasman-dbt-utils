@@ -4,12 +4,12 @@
 
 {% macro snowflake__set_warehouse_size(size) %}
 
-	{% if var("available_sizes", None) == None %}
-		{{ exceptions.raise_compiler_error("Please set the `available_sizes` variable in the dbt_project.yml.") }}
+	{% if var("available_warehouse_sizes", None) == None %}
+		{{ exceptions.raise_compiler_error("Please set the `available_warehouse_sizes` variable in the dbt_project.yml.") }}
 	{% endif %}
 
-    {% if size not in var("available_sizes") %}
-        {{ exceptions.raise_compiler_error("Warehouse size not one of " ~ var("available_sizes")) }}
+    {% if size not in var("available_warehouse_sizes") %}
+        {{ exceptions.raise_compiler_error("Warehouse size not one of " ~ var("available_warehouse_sizes")) }}
     {% endif %}
 
     {% if target.name == 'prod' %}
