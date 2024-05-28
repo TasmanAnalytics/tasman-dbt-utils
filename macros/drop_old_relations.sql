@@ -2,7 +2,11 @@
 	{{ return(adapter.dispatch('drop_old_relations', 'tasman_dbt_utils')(schema_prefix, database, dry_run)) }}
 {%- endmacro %}
 
-{% macro default__drop_old_relations(schema_prefix=target.schema, database=target.database, dry_run=True) %}
+{% macro bigquery__drop_old_relations(size) %}
+    {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
+{% endmacro %}
+
+{% macro snowflake__drop_old_relations(schema_prefix=target.schema, database=target.database, dry_run=True) %}
 	{# Get the models that currently exist in dbt #}
 	{% if execute %}
 	{% set current_models=[] %}
