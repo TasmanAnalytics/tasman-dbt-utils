@@ -268,13 +268,13 @@ vars:
   tasman_dbt_utils:
     snowflake_warehouses:
       prod:
-        warehouse_prefix: "IP_DBT_WH_"
+        warehouse_prefix: "PROD_WH_"
         size: ["XS", "S", "M"]
       ci:
-        warehouse_prefix: "IP_DBT_WH_"
+        warehouse_prefix: "CI_WH_"
         size: ["XS", "S", "M"]
       dev:
-        warehouse_prefix: "IP_DEV_ENG_WH"
+        warehouse_prefix: "DEV_WH_"
         size: []
 ```
 
