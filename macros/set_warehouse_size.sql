@@ -17,7 +17,9 @@
     
     {% if target.name in size_dict %}
         {% set env = size_dict[target_name] %}
-        {% if env['size']|length == 0 %}
+        {% if not env['size'] is defined %}
+            {{ exceptions.raise_compiler_error("No available warehouse size specified for the environment '" ~ target_name ~ "'.") }}
+        {% elif env['size']|length == 0 %}
             {{ env['warehouse_prefix'] }}
         {% elif size in env['size'] %}
             {{ env['warehouse_prefix'] ~ size }}
