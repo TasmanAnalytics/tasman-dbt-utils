@@ -2,15 +2,19 @@
 [![tasman_logo][tasman_wordmark_cream]][tasman_website_dark_mode]
 
 ---
-*We are the boutique analytics consultancy that turns disorganised data into real business value. [Get in touch][tasman_contact] to learn more about how Tasman can help solve your organisations data challenges.*
+
+_We are the boutique analytics consultancy that turns disorganised data into real business value. [Get in touch][tasman_contact] to learn more about how Tasman can help solve your organisations data challenges._
 
 # tasman_dbt_utils
+
 ## What is tasman_dbt_utils?
+
 `tasman_dbt_utils` is a dbt package with reusable macro's. It includes macro's for, but not limited to:
-- tests
-- monitoring & auditing
-- SQL functions
-- ops functions
+
+-   tests
+-   monitoring & auditing
+-   SQL functions
+-   ops functions
 
 The intention for this package is to have each macro available for [dbt-snowflake](https://github.com/dbt-labs/dbt-snowflake) and [dbt-bigquery](https://github.com/dbt-labs/dbt-bigquery). Some functions will be only available for one of the platforms because of the fundamental differences between them. For example managing warehouse-size's is only a thing in Snowflake. This package does not intend to replace other packages which are commonly used such as [dbt-utils](https://github.com/dbt-labs/dbt-utils) or [dbt-expectations](https://github.com/calogica/dbt-expectations). This package add's functionalities which those package's don't provide.
 
@@ -23,24 +27,26 @@ packages:
 ```
 
 ## Macro's & tests
-- [tasman\_dbt\_utils](#tasman_dbt_utils)
-  - [What is tasman\_dbt\_utils?](#what-is-tasman_dbt_utils)
-  - [Installation](#installation)
-  - [Macro's \& tests](#macros--tests)
-    - [Tests](#tests)
-      - [test\_count\_distinct\_matches\_source (source)](#test_count_distinct_matches_source-source)
-      - [test\_sum\_matches\_source (source)](#test_sum_matches_source-source)
-    - [SQL Functions](#sql-functions)
-      - [include\_source (source)](#include_source-source)
-      - [include\_ref (source)](#include_ref-source)
-    - [Monitoring \& auditing](#monitoring--auditing)
-      - [create\_table\_profile (source)](#create_table_profile-source)
-      - [get\_object\_keys (source)](#get_object_keys-source)
-    - [Ops](#ops)
-      - [set\_warehouse\_size (source)](#set_warehouse_size-source)
-      - [drop\_old\_relations (source)](#drop_old_relations-source)
+
+-   [tasman_dbt_utils](#tasman_dbt_utils)
+    -   [What is tasman_dbt_utils?](#what-is-tasman_dbt_utils)
+    -   [Installation](#installation)
+    -   [Macro's \& tests](#macros--tests)
+        -   [Tests](#tests)
+            -   [test_count_distinct_matches_source (source)](#test_count_distinct_matches_source-source)
+            -   [test_sum_matches_source (source)](#test_sum_matches_source-source)
+        -   [SQL Functions](#sql-functions)
+            -   [include_source (source)](#include_source-source)
+            -   [include_ref (source)](#include_ref-source)
+        -   [Monitoring \& auditing](#monitoring--auditing)
+            -   [create_table_profile (source)](#create_table_profile-source)
+            -   [get_object_keys (source)](#get_object_keys-source)
+        -   [Ops](#ops)
+            -   [set_warehouse_size (source)](#set_warehouse_size-source)
+            -   [drop_old_relations (source)](#drop_old_relations-source)
 
 ### Tests
+
 #### test_count_distinct_matches_source ([source](tests/generic/test_count_distinct_matches_source.sql))
 
 1. Count distinct of the test column (e.g. transaction_id)
@@ -50,17 +56,18 @@ packages:
 5. (Bonus) If you are fine with tests not being an exact match, then you can specify a threshold for which failures can occur e.g. count transactions can fluctuate within ±5% range from source
 
 **Arguments**
-* `source_model` (required): The name of the model that contains the source of truth. Specify this as a ref function e.g. `ref('raw_jaffle_shop')`.
-    - These can be seed files or dbt models, so there's a degree of flexibility here  
-* `source_metric` (required): The name of the column/metric sourced from `source_model`
-* `comparison_field` (required): The name of the column/metric sourced from `model` in the YAML file i.e. the column/metric that is being compared against 
-* `percent_mismatch_threshold` (optional, default = 0): The threshold that you would allow your tests to be out by. e.g. if you are happy with ±5% discrepancy, then set to 5. 
+
+-   `source_model` (required): The name of the model that contains the source of truth. Specify this as a ref function e.g. `ref('raw_jaffle_shop')`.
+    -   These can be seed files or dbt models, so there's a degree of flexibility here
+-   `source_metric` (required): The name of the column/metric sourced from `source_model`
+-   `comparison_field` (required): The name of the column/metric sourced from `model` in the YAML file i.e. the column/metric that is being compared against
+-   `percent_mismatch_threshold` (optional, default = 0): The threshold that you would allow your tests to be out by. e.g. if you are happy with ±5% discrepancy, then set to 5.
 
 **Usage**
 This works similarly to the off-the-box tests offered by dbt (`unique`, `not_null` etc)
 
-1. Create the test in the YAML config, specifying values for all arguments marked as required above. Example: 
-    - add any additional filtering conditions to your model via `config/where` block  
+1. Create the test in the YAML config, specifying values for all arguments marked as required above. Example:
+    - add any additional filtering conditions to your model via `config/where` block
 
 ```
 version: 2
@@ -83,8 +90,9 @@ models:
               config:
                 where: date_trunc(day, created_timestamp) between '2022-01-11' and '2022-12-31' and sale_type != 'CANCELLED'
 ```
+
 2. Specify a unique test name for `name`
-    - If this is not specified then dbt will, by default, concatenate all the test arguments into a long list, making the whole test unreadable. 
+    - If this is not specified then dbt will, by default, concatenate all the test arguments into a long list, making the whole test unreadable.
 3. Run dbt test as you normally would e.g. `dbt test -s dmn_jaffle_shop`
 
 #### test_sum_matches_source ([source](tests/generic/test_sum_matches_source.sql))
@@ -96,17 +104,18 @@ models:
 5. (Bonus) If you are fine with tests not being an exact match, then you can specify a threshold for which failures can occur e.g. Sum revenue can fluctuate within ±5% range from source
 
 **Arguments**
-* `source_model` (required): The name of the model that contains the source of truth. Specify this as a ref function e.g. `ref('raw_jaffle_shop')`
-    - These can be seed files or dbt models, so there's a degree of flexibility here
-* `source_metric` (required): The name of the column/metric sourced from `source_model`
-* `comparison_field` (required): The name of the column/metric sourced from `model` in the YAML file i.e. the column/metric that is being compared against 
-* `percent_mismatch_threshold` (optional, default = 0): The threshold that you would allow your tests to be out by. e.g. if you are happy with ±5% discrepancy, then set to 5. 
+
+-   `source_model` (required): The name of the model that contains the source of truth. Specify this as a ref function e.g. `ref('raw_jaffle_shop')`
+    -   These can be seed files or dbt models, so there's a degree of flexibility here
+-   `source_metric` (required): The name of the column/metric sourced from `source_model`
+-   `comparison_field` (required): The name of the column/metric sourced from `model` in the YAML file i.e. the column/metric that is being compared against
+-   `percent_mismatch_threshold` (optional, default = 0): The threshold that you would allow your tests to be out by. e.g. if you are happy with ±5% discrepancy, then set to 5.
 
 **Usage**
 This works similarly to the off-the-box tests offered by dbt (`unique`, `not_null` etc)
 
-1. Create the test in the YAML config, specifying values for all arguments marked as required above. Example: 
-    - add any additional filtering conditions to your model via `config/where` block  
+1. Create the test in the YAML config, specifying values for all arguments marked as required above. Example:
+    - add any additional filtering conditions to your model via `config/where` block
 
 ```
 version: 2
@@ -128,12 +137,15 @@ models:
               config:
                 where: date_trunc(day, created_timestamp) between '2022-01-11' and '2022-12-31' and sale_type != 'CANCELLED'
 ```
+
 2. Specify a unique test name for `name`
-    - If this is not specified then dbt will, by default, concatenate all the test arguments into a long list, making the whole test unreadable. 
+    - If this is not specified then dbt will, by default, concatenate all the test arguments into a long list, making the whole test unreadable.
 3. Run dbt test as you normally would e.g. `dbt test -s dmn_jaffle_shop`
 
 ### SQL Functions
+
 #### include_source ([source](macros/mcr_include_source.sql))
+
 A frequently used pattern for creating initial CTEs to reference sources to create a dbt model dependancy.
 
 | Platform  | Support |
@@ -142,15 +154,18 @@ A frequently used pattern for creating initial CTEs to reference sources to crea
 | Snowflake | ✅      |
 
 **Arguments**
-- `source`: (required) Source model name to be used in script. This is also used to name the CTE.
+
+-   `source`: (required) Source model name to be used in script. This is also used to name the CTE.
 
 **Usage**
+
 ```
     {{include_source('dbo','user')}}
     {{include_source('dbo','event')}}
 ```
 
 #### include_ref ([source](macros/mcr_include_ref.sql))
+
 A frequently used pattern for creating initial CTEs to reference upstream models to create a dbt model dependancy.
 
 | Platform  | Support |
@@ -159,18 +174,23 @@ A frequently used pattern for creating initial CTEs to reference upstream models
 | Snowflake | ✅      |
 
 **Arguments**
-- `source`: (required) Source model name to be used in script. This is also used to name the CTE.
-- `where_statement`: (optional) This can be used to do an initial filter on the model.
+
+-   `source`: (required) Source model name to be used in script. This is also used to name the CTE.
+-   `where_statement`: (optional) This can be used to do an initial filter on the model.
 
 **Usage**
+
 ```
     {{include('stg_user', 'where user_active = true')}}
     {{include('dmn_pipeline')}}
 ```
 
 ### Monitoring & auditing
+
 #### create_table_profile ([source](macros/create_table_profile.sql))
+
 Prints a summary of statistics about the target model to the terminal.
+
 ```
 | database_name   | schema_name | table_name | column_name          | ordinal_position | row_count | distinct_count | null_count | is_unique | max        | min        |     avg |
 | --------------- | ----------- | ---------- | -------------------- | ---------------- | --------- | -------------- | ---------- | --------- | ---------- | ---------- | ------- |
@@ -191,11 +211,13 @@ Prints a summary of statistics about the target model to the terminal.
 _Scope: model, seed, snapshot_
 
 **Arguments**
-- `table`: the name of the table it should do the table scan on.
-- `schema` (optional, default=target.schema): the schema of where the target table is located.
-- `database` (optional, default=target.database): the database of where the target table is located.
- 
+
+-   `table`: the name of the table it should do the table scan on.
+-   `schema` (optional, default=target.schema): the schema of where the target table is located.
+-   `database` (optional, default=target.database): the database of where the target table is located.
+
 #### get_object_keys ([source](macros/get_object_keys.sql))
+
 Gets all of the object keys (including nested keys) of a column and prints them to the terminal.
 
 | Platform  | Support |
@@ -206,13 +228,16 @@ Gets all of the object keys (including nested keys) of a column and prints them 
 _Scope: model, snapshot_
 
 **Argements**
-- `column`: the name of the object column.
-- `table`: the name of the target table.
-- `schema` (optional, default=target.schema): the schema of where the target table is located.
-- `database` (optional, default=target.database): the database of where the target table is located.
+
+-   `column`: the name of the object column.
+-   `table`: the name of the target table.
+-   `schema` (optional, default=target.schema): the schema of where the target table is located.
+-   `database` (optional, default=target.database): the database of where the target table is located.
 
 ### Ops
+
 #### set_warehouse_size ([source](macros/set_warehouse_size.sql))
+
 Sets a custom warehouse size for individual models.
 
 | Platform  | Support |
@@ -223,23 +248,38 @@ Sets a custom warehouse size for individual models.
 _Scope: model, snapshot_
 
 **Arguments**
-- `size` (required): the size of the warehouse
+
+-   `size` (required): the size of the warehouse
 
 **Usage**
+
 ```
 {{
     config(
-        snowflake_warehouse=set_warehouse('M')
+        snowflake_warehouse=tasman_dbt_utils.set_warehouse('M')
     )
 }}
 ```
-This requires a list of available warehouse size's to be set in the dbt_project.yml
+
+This requires a dict of environemtns, warehouses and the available warehouse size's to be set in the dbt_project.yml
+
 ```
 vars:
-	tasman_dbt_utils:
-		available_warehouse_sizes: ['XS', 'S', 'M']
+  tasman_dbt_utils:
+    snowflake_warehouses:
+      prod:
+        warehouse_prefix: "PROD_WH_"
+        size: ["XS", "S", "M"]
+      ci:
+        warehouse_prefix: "CI_WH_"
+        size: ["XS", "S", "M"]
+      dev:
+        warehouse_prefix: "DEV_WH_"
+        size: []
 ```
+
 #### drop_old_relations ([source](macros/drop_old_relations.sql))
+
 This macro takes the relations in the manifest and compares it to the tables and views in the warehouse. Tables and views which are in the warehouse but not in the manifest will be dropped.
 
 | Platform  | Support |
@@ -250,15 +290,16 @@ This macro takes the relations in the manifest and compares it to the tables and
 _Scope: model, seed, snapshot_
 
 **Arguments**
-- `schema_prefix` (optional, default=target.schema): the prefix of the schema's where the relations should be deleted. 
-- `database` (optional, default=target.database): the database where the relations should be deleted.
-- `dry_run` (optional, default=True): when set to True it will print the statements, when set to False it will actually remove the relations.
+
+-   `schema_prefix` (optional, default=target.schema): the prefix of the schema's where the relations should be deleted.
+-   `database` (optional, default=target.database): the database where the relations should be deleted.
+-   `dry_run` (optional, default=True): when set to True it will print the statements, when set to False it will actually remove the relations.
 
 **Usage**
+
 ```
 dbt run-operation drop_old_relations --args '{dry_run: False, schema: dbt}'
 ```
-
 
 [tasman_website_dark_mode]: https://tasman.ai?utm_source=github&utm_medium=internal-referral&utm_campaign=tasman-dbt-utils#gh-dark-mode-only
 [tasman_website_light_mode]: https://tasman.ai?utm_source=github&utm_medium=internal-referral&utm_campaign=tasman-dbt-utilst#gh-light-mode-only
