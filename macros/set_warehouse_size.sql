@@ -20,14 +20,14 @@
         {% if not env['size'] is defined %}
             {{ exceptions.raise_compiler_error("No available warehouse size specified for the environment '" ~ target_name ~ "'.") }}
         {% elif env['size']|length == 0 %}
-            {{ env['warehouse_prefix'] }}
+            {{ exceptions.raise_compiler_error("No available warehouse size specified for the environment '" ~ target_name ~ "'.") }}
         {% elif size in env['size'] %}
             {{ env['warehouse_prefix'] ~ size }}
         {% else %}
             {{ exceptions.raise_compiler_error("Size '" ~ size ~ "' is not valid for the environment '" ~ target_name ~ "'.") }}
         {% endif %}
     {% else %}
-        {{ exceptions.raise_compiler_error("Target name '" ~ target_name ~ "' does not match any environment key.") }}
+        {{ target.warehouse	}}
     {% endif %}
 
 {% endmacro %}
