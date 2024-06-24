@@ -261,7 +261,7 @@ _Scope: model, snapshot_
 }}
 ```
 
-This requires a dict of environemtns, warehouses and the available warehouse size's to be set in the dbt_project.yml
+This requires a dict of environment, warehouses and the available warehouse size's to be set in the dbt_project.yml. If the environment is missing from `dbt_project.yml` it uses the default warehouse.
 
 ```
 vars:
@@ -273,9 +273,6 @@ vars:
       ci:
         warehouse_prefix: "CI_WH_"
         size: ["XS", "S", "M"]
-      dev:
-        warehouse_prefix: "DEV_WH_"
-        size: []
 ```
 
 #### drop_old_relations ([source](macros/drop_old_relations.sql))
