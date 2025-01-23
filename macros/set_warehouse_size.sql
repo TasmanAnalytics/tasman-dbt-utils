@@ -3,7 +3,7 @@
 {% endmacro %}
 
 {% macro default__set_warehouse_size(size) %}
-    {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
+    {{ exceptions.raise_compiler_error("This macro is not supported for the adapter that is currently being used.") }}
 {% endmacro %}
 
 {% macro snowflake__set_warehouse_size(size) %}
