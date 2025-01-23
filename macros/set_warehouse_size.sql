@@ -2,7 +2,7 @@
 	{{ return(adapter.dispatch('set_warehouse_size', 'tasman_dbt_utils')(size)) }}
 {% endmacro %}
 
-{% macro bigquery__set_warehouse_size(size) %}
+{% macro default__set_warehouse_size(size) %}
     {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
 {% endmacro %}
 

@@ -2,7 +2,7 @@
     {{ return(adapter.dispatch('get_object_keys', 'tasman_dbt_utils')(column, table, database, schema)) }}
 {%- endmacro %}
 
-{% macro bigquery__get_object_keys(size) %}
+{% macro default__get_object_keys(size) %}
     {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
 {% endmacro %}
 

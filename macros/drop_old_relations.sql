@@ -2,7 +2,7 @@
 	{{ return(adapter.dispatch('drop_old_relations', 'tasman_dbt_utils')(schema_prefix, database, dry_run)) }}
 {%- endmacro %}
 
-{% macro bigquery__drop_old_relations(size) %}
+{% macro default__drop_old_relations(size) %}
     {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
 {% endmacro %}
 
