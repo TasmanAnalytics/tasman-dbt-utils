@@ -2,8 +2,8 @@
     {{ return(adapter.dispatch('get_object_keys', 'tasman_dbt_utils')(column, table, database, schema)) }}
 {%- endmacro %}
 
-{% macro bigquery__get_object_keys(size) %}
-    {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
+{% macro default__get_object_keys(size) %}
+    {{ exceptions.raise_compiler_error("This macro is not supported for the adapter that is currently being used.") }}
 {% endmacro %}
 
 {% macro snowflake__get_object_keys(column, table, schema=target.schema, database=target.database) %}

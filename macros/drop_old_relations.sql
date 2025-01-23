@@ -2,8 +2,8 @@
 	{{ return(adapter.dispatch('drop_old_relations', 'tasman_dbt_utils')(schema_prefix, database, dry_run)) }}
 {%- endmacro %}
 
-{% macro bigquery__drop_old_relations(size) %}
-    {{ exceptions.raise_compiler_error("This macro is not supported in BigQuery.") }}
+{% macro default__drop_old_relations(size) %}
+    {{ exceptions.raise_compiler_error("This macro is not supported for the adapter that is currently being used.") }}
 {% endmacro %}
 
 {% macro snowflake__drop_old_relations(schema_prefix=target.schema, database=target.database, dry_run=True) %}
