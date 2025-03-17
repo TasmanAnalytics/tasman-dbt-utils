@@ -1,4 +1,4 @@
-{% test sum_aggregate_matches_source(model, column_name, source_model, source_field, source_metric, comparison_field, percent_mismatch_threshold = 0) %}
+{% test count_aggregate_matches_source(model, column_name, source_model, source_field, source_metric, comparison_field, percent_mismatch_threshold = 0) %}
 
 {% set max_index = comparison_field|length %}
 
