@@ -11,12 +11,24 @@ macros:
       which can be used to pass options to the macro.
 
 
+      The value can either be a relation, or a dictionary with the following
+      structure:
+
+          ```
+          {
+            "from": <relation>,
+            "where": <where_clause>
+          }
+          ```
+
+
       Example usage:
 
           -- Simple usage
           {% raw %}{{ tasman_dbt_utils.import(
               orders=source("orders"),
-              customers=ref("customers")
+              customers=ref("customers"),
+              customers={"from": ref("payments"), "where": "is_posted = true"}
           ) }}{% endraw %}
 
           -- Using the import options
@@ -36,3 +48,7 @@ macros:
     
           - `recursive`: If set to `true`, the `recursive` keyword will be
              included. Defaults to `false`.
+
+  - name: _parse_import_value
+    docs: {show: false}
+    description: Helper macro for `import`.
