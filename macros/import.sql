@@ -22,7 +22,7 @@
         {% if "from" in import_value %}
             {{ return(import_value) }}
         {%- else -%}
-            {{ exceptions.raise_compiler_error("tasman_dbt_utils.import received a non-scalar value without the 'from' key: " ~ import_value) }}
+            {{ exceptions.raise_compiler_error("tasman_dbt_utils.import received a dictionary without the 'from' key: " ~ import_value) }}
         {%- endif -%}
     {%- else -%}
         {{ exceptions.raise_compiler_error("tasman_dbt_utils.import received an unprocessable value: " ~ import_value) }}
