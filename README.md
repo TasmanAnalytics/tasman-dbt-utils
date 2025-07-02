@@ -144,6 +144,46 @@ models:
 
 ### SQL Functions
 
+#### import ([source](macros/import.sql))
+
+Expand key-value pairs into CTEs.
+
+The CTE names will be the key, and the values will be used in the `FROM` clause. There is a special named parameter, `import_options`, which can be used to pass options to the macro.
+
+The value can either be a relation, or a dictionary with the following structure:
+
+```
+{
+    "from": <relation>,
+    "where": <where_clause>
+}
+```
+
+**Arguments**
+
+- `**kwargs`: (required) Key-value pairs to use as CTEs.
+- `import_options`: (optional) A dictionary of options to pass to the import macro. The supported options are:
+  - `recursive`: (optional) Whether to include the `recursive` keyword after `with`. Defaults to `false`.
+
+**Usage**
+
+```
+-- Simple usage
+{{ tasman_dbt_utils.import(
+  orders=source("orders"),
+  customers=ref("customers")
+) }}
+
+-- Advanced usage (dict value, import options)
+{{ tasman_dbt_utils.import(
+  orders=source("orders"),
+  customers={"from": ref("customers"), "where": "is_active = true"},
+  import_options={
+      "recursive": true
+  }
+) }}
+```
+
 #### include_source ([source](macros/mcr_include_source.sql))
 
 A frequently used pattern for creating initial CTEs to reference sources to create a dbt model dependancy.

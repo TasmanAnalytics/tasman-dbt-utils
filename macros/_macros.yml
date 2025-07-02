@@ -1,0 +1,54 @@
+---
+macros:
+  - name: import
+    docs: {show: true}
+    description: >
+      Expand key-value pairs into CTEs.
+
+
+      The CTE names will be the key, and the values will be used in the `FROM`
+      clause. There is a special named parameter, `import_options`, which can be
+      used to pass options to the macro.
+
+
+      The value can either be a relation, or a dictionary with the following
+      structure:
+
+          ```
+          {
+            "from": <relation>,
+            "where": <where_clause>
+          }
+          ```
+
+
+      Example usage:
+
+          -- Simple usage
+          {% raw %}{{ tasman_dbt_utils.import(
+              orders=source("orders"),
+              customers=ref("customers")
+          ) }}{% endraw %}
+
+          -- Advanced usage (dict value, import options)
+          {% raw %}{{ tasman_dbt_utils.import(
+              orders=source("orders"),
+              customers={"from": ref("customers"), "where": "is_active = true"},
+              import_options={
+                  "recursive": true
+              }
+          ) }}{% endraw %}
+      ```
+    arguments:
+      - name: import_options
+        type: dict
+        description: >
+          A dictionary of options to pass to the import macro. The supported
+          options are:
+    
+          - `recursive`: Whether to include the `recursive` keyword after
+             `with`. Defaults to `false`.
+
+  - name: _parse_import_value
+    docs: {show: false}
+    description: Helper macro for `import`.
