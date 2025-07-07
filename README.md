@@ -23,7 +23,7 @@ The intention for this package is to have each macro available for [dbt-snowflak
 ```
 packages:
     - git: "https://github.com/TasmanAnalytics/tasman_dbt_utils.git"
-      revision: 1.0.0
+      revision: 1.2.2
 ```
 
 ## Macro's & tests
