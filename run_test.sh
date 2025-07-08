@@ -24,5 +24,9 @@ echo -e "\n${BLUE}dbt deps${END}"
 dbt deps --target snowflake-ci || exit 1
 
 # build will seed, run, and test
-echo -e "\n${BLUE}dbt build${END}"
+echo -e "\n${BLUE}dbt build (full refresh)${END}"
 dbt build --target snowflake-ci --full-refresh || exit 1
+
+# build again for incremental models
+echo -e "\n${BLUE}dbt build (incremental)${END}"
+dbt build --target snowflake-ci || exit 1
