@@ -1,5 +1,5 @@
 name: 'tasman_dbt_utils'
-version: '0.0.1'
+version: '1.2.2'
 
 require-dbt-version: [">=1.8.0", "<2.0.0"]
 
