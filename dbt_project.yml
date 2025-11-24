@@ -1,9 +1,10 @@
-name: 'tasman_dbt_utils'
-version: '1.2.2'
-
-require-dbt-version: [">=1.8.0", "<2.0.0"]
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/latest/dbt_project-latest.json
+---
+name: tasman_dbt_utils
+version: "1.2.2"
 
 config-version: 2
+require-dbt-version: [">=1.8.0", "<2.0.0"]
 
 target-path: "target"
 clean-targets: ["target", "dbt_modules", "dbt_packages"]
