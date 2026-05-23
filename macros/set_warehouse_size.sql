@@ -14,7 +14,7 @@
 
     {% set size_dict = var('snowflake_warehouses') %}
     {% set target_name = target.name %}
-    
+
     {% if target.name in size_dict %}
         {% set env = size_dict[target_name] %}
         {% if not env['size'] is defined %}
