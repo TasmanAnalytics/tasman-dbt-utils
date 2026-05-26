@@ -14,7 +14,7 @@
 	{% for node in graph.nodes.values()
 		| selectattr("resource_type", "in", ["model", "seed", "snapshot"])%}
 			{% do current_models.append(node.name) %}
-		
+
 	{% endfor %}
 	{% endif %}
 
@@ -23,7 +23,7 @@
 
 		with models_to_drop as (
 			select
-				case 
+				case
 					when lower(table_type) = 'base table' then 'table'
 					when lower(table_type) = 'view' then 'view'
 				end as relation_type,
@@ -36,7 +36,7 @@
 					{%- if not loop.last -%}
 						,
 					{% endif %}
-				{%- endfor -%})) 
+				{%- endfor -%}))
 
 		select 'drop ' || relation_type || ' ' || relation_name || ';' as drop_commands
 		from models_to_drop
@@ -52,7 +52,7 @@
 		{% else %}
 			{% do log('Printing DROP commands...', True) %}
 		{% endif %}
-		
+
 		{% for drop_command in drop_commands %}
 			{% do log(drop_command, True) %}
 			{% if dry_run | as_bool == False %}

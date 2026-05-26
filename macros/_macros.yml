@@ -45,7 +45,7 @@ macros:
         description: >
           A dictionary of options to pass to the import macro. The supported
           options are:
-    
+
           - `recursive`: Whether to include the `recursive` keyword after
              `with`. Defaults to `false`.
 

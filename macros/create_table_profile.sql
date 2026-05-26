@@ -5,7 +5,7 @@
 {% macro default__create_table_profile(table, schema=target.schema, database=target.database, print=True) %}
 
 	{%- set metrics_list = ['count', 'count_distinct', 'null_count', 'min', 'max', 'range', 'avg', 'top_count'] -%}
-	
+
 	{% set information_schema_query %}
 
 		select
@@ -17,7 +17,7 @@
 			ORDINAL_POSITION,
 			DATA_TYPE
 
-		from 
+		from
 			{% if target.type == 'bigquery' %}
 				{{ database }}.{{ schema }}.INFORMATION_SCHEMA.COLUMNS
 			{% elif target.type == 'snowflake' %}
@@ -36,7 +36,7 @@
 
 		with table_profile as (
 		{%- for column_name in information_schema_result.COLUMN_NAME -%}
-			select 
+			select
 				'{{ information_schema_result.DATABASE_NAME[loop.index0] }}' as database_name,
 				'{{ information_schema_result.SCHEMA_NAME[loop.index0] }}' as schema_name,
 				'{{ information_schema_result.TABLE_NAME[loop.index0] }}' as table_name,
@@ -62,7 +62,7 @@
 				{% else %}
 					cast(null as {{ dbt.type_numeric() }}) as avg
 				{% endif %}
-		
+
 			from {{ database }}.{{ schema }}.{{ table }}
 			group by 1,2,3,4,5
 
